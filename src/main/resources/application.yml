@@ -1,0 +1,18 @@
+server:
+    port: 8080
+spring:
+    cloud:
+        gateway:
+            routes:
+                - id: producer
+                  uri: http://localhost:8081
+                  predicates:
+                      - Path=/producer/**
+                - id: consumer
+                  uri: http://localhost:8082
+                  predicates:
+                      - Path=/consumer/**
+                  filters:
+                      PrefixPath=/api
+            metrics:
+                enabled: true
